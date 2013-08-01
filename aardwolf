@@ -1,0 +1,21 @@
+#!/bin/bash
+
+PWD=$(pwd)
+WD="$(dirname $(readlink $0))"
+
+HOST="$1"
+DIR="$2"
+
+cd "$WD"
+
+if [ "$DIR" == "" ]; then
+	DIR="$WD/samples"
+fi
+
+if [ ! -d "node_modules" ]; then
+	npm link
+fi
+
+node app.js -h "$HOST" -d "$DIR"
+
+cd "$PWD"
